@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block  title%}{% endblock  %}</title>
+</head>
+<body>
+    <aside>
+        <h3>Навигация</h3>
+        <ul>
+            <a href="{% url 'home' %}"><li><i class="fa-solid fa-house"></i> Главная</li></a>
+            <a href="{% url 'register' %}"><li><i class="fa-solid fa-user"></i> Регистрация </li></a>
+            <a href="{% url 'login' %}"><li><i class="fa-brands fa-telegram"></i> Вход </li></a>
+            <a href="{% url 'logout' %}"><li><i class="fa-brands fa-telegram"></i> Выход </li></a>
+        </ul>
+        <style>
+          a {
+          text-decoration: none;
+          }
+        </style>
+    </aside>
+    <main>
+        {% block  content%}
+        {% endblock  %}
+    </main>
+</body>
+</html>

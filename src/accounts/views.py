@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -34,11 +34,17 @@ class UserDetailView(DetailView):
 class MyLoginView(LoginView):
     model = MyUser
     template_name = 'accounts/login.html'
-    # redirect_authenticated_user = True
-    #
-    # def get_success_url(self):
-    #     return reverse_lazy('home')
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return reverse_lazy('home') 
 
     def form_invalid(self, form):
         messages.error(self.request, 'Invalid username or password')
         return self.render_to_response(self.get_context_data(form=form))
+    
+    
+class MyLogoutView(LogoutView):
+    template_name = 'accounts/logout.html'
+    next_page = 'home'
+    http_method_names = ['get', 'post']
