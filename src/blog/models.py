@@ -17,3 +17,7 @@ class Article(models.Model):
     annotation = models.CharField('Аннотация', max_length=150)
     main_text = models.TextField('Статья')
     publication_date = models.DateTimeField(verbose_name="Дата публикации", default=now)
+
+    def __str__(self):
+        return f'Заголовок - {self.title}, Пользователь - {self.author}'
+
