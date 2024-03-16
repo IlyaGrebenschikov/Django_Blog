@@ -19,5 +19,5 @@ class Article(models.Model):
     publication_date = models.DateTimeField(verbose_name="Дата публикации", default=now)
 
     def __str__(self):
-        return f'Заголовок - {self.title}, Пользователь - {self.author}'
+        return f'Заголовок - {self.title}, Пользователь - {self.author.username}'
 
