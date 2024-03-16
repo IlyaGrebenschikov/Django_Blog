@@ -18,6 +18,10 @@ class Article(models.Model):
     main_text = models.TextField('Статья')
     publication_date = models.DateTimeField(verbose_name="Дата публикации", default=now)
 
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
+
     def __str__(self):
         return f'Заголовок - {self.title}, Пользователь - {self.author.username}'
 
