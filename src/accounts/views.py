@@ -1,8 +1,12 @@
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
@@ -25,10 +29,17 @@ class UserRegistrationView(CreateView):
         return result
 
 
-class UserDetailView(DetailView):
+@method_decorator(login_required, name='dispatch')
+class UserDetailView(LoginRequiredMixin, DetailView):
     model = MyUser
     template_name = 'accounts/details_view.html'
     context_object_name = 'user'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        current_user = self.request.user
+        filtered_queryset = queryset.filter(pk=current_user.pk)
+        return filtered_queryset
 
 
 class MyLoginView(LoginView):
